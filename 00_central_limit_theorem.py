@@ -1,16 +1,16 @@
+# Import Dash components, plotly, and numpy
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
-import pandas as pd
 import numpy as np
 
-N_options = [10,100,1000]
+N_options = [10,100,1000,10000]
 
 app = dash.Dash()
 
 app.layout = html.Div([
-    html.H2("Teorema Central del Límite"),
+    html.H2("Teorema Central del Límite - Ejemplo Binomial"),
     html.Div(
         [
             dcc.Dropdown(
@@ -23,18 +23,16 @@ app.layout = html.Div([
         ],
         style={'width': '25%',
                'display': 'inline-block'}),
-    dcc.Graph(id='funnel-graph'),
+    dcc.Graph(id='hgraph'),
 ])
 
 
 @app.callback(
-    dash.dependencies.Output('funnel-graph', 'figure'),
+    dash.dependencies.Output('hgraph', 'figure'),
     [dash.dependencies.Input('N', 'value')])
 
 def update_graph(N):
-
-    trace = go.Histogram(x=np.random.randn(10))
-
+    trace = go.Histogram(x=np.random.randn(N))
     return {
         'data': [trace],
         'layout':
